@@ -51,20 +51,28 @@ export class AppComponent implements OnInit {
     },
     resourceAreaHeaderContent: 'Rooms',
     resources: [
-      { id: 'a', title: 'Auditorium A' },
-      { id: 'b', title: 'Auditorium B', eventColor: 'green' },
+      { id: 'a', title: 'Auditorium A' ,
+        businessHours: {
+          daysOfWeek: [ 1, 2, 3, 4 ]
+        }
+      },
+      { id: 'b', title: 'Auditorium B' },
       { id: 'c', title: 'Auditorium C', eventColor: 'orange' },
     ],
     events: [
-      { id: '1', resourceId: 'b', start: '2018-02-07T02:00:00', end: '2018-02-07T07:00:00', title: 'event 1' },
+      { id: '1', resourceId: 'b', start: '2020-05-07', end: '2020-05-09', backgroundColor: '#8080803b'},
       { id: '2', resourceId: 'c', start: '2018-02-07T05:00:00', end: '2018-02-07T22:00:00', title: 'event 2' },
       { id: '3', resourceId: 'd', start: '2018-02-06', end: '2018-02-08', title: 'event 3' },
       { id: '4', resourceId: 'e', start: '2018-02-07T03:00:00', end: '2018-02-07T08:00:00', title: 'event 4' },
       { id: '5', resourceId: 'f', start: '2018-02-07T00:30:00', end: '2018-02-07T02:30:00', title: 'event 5' }
     ],
-    dayRender: function(dayRenderInfo ) { 
-      console.log(dayRenderInfo);
-    }
+    businessHours: [ // specify an array instead
+      {
+        daysOfWeek: [ 1, 2, 3, 4, 5 ],
+        startTime: '00:00',
+        endTime: '23:00'
+      }
+    ]
   });
   calendar.render();
   }
