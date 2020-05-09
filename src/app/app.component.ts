@@ -18,23 +18,35 @@ export class AppComponent implements OnInit {
     let calendarEl: HTMLElement = document.getElementById('calendar')!;
 
   let calendar = new Calendar(calendarEl, {
-    plugins: [ interactionPlugin, dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin ],
-    now: '2018-02-07',
+    plugins: [resourceTimelinePlugin],
     editable: true, // enable draggable events
     aspectRatio: 1.8,
     scrollTime: '00:00', // undo default 6am scrollTime
     headerToolbar: {
       left: 'today prev,next',
       center: 'title',
-      right: 'resourceTimelineDay,resourceTimelineThreeWeek,timeGridWeek,dayGridMonth,listWeek'
+      right: 'resourceTimeline3Week,resourceTimeline3Month'
     },
-    initialView: 'resourceTimelineThreeWeek',
+    initialView: 'resourceTimeline3Week',
     views: {
-      resourceTimelineThreeWeek: {
+      resourceTimeline3Week: {
+        type: 'resourceTimeline',
+        duration: { weeks: 3 },
+        buttonText: '3 week',
+        slotLabelFormat: [
+          {month: 'short'},
+          {weekday: 'short', day: 'numeric'}
+        ]
+      }
+      ,
+      resourceTimeline3Month: {
         type: 'resourceTimeline',
         duration: { months: 3 },
         buttonText: '3 month',
-        slotLabelFormat: { weekday: 'short', day: 'numeric'}
+        slotLabelFormat: [
+          {month: 'short'},
+          {weekday: 'short', day: 'numeric'}
+        ]
       }
     },
     resourceAreaHeaderContent: 'Rooms',
@@ -49,7 +61,10 @@ export class AppComponent implements OnInit {
       { id: '3', resourceId: 'd', start: '2018-02-06', end: '2018-02-08', title: 'event 3' },
       { id: '4', resourceId: 'e', start: '2018-02-07T03:00:00', end: '2018-02-07T08:00:00', title: 'event 4' },
       { id: '5', resourceId: 'f', start: '2018-02-07T00:30:00', end: '2018-02-07T02:30:00', title: 'event 5' }
-    ]
+    ],
+    dayRender: function(dayRenderInfo ) { 
+      console.log(dayRenderInfo);
+    }
   });
   calendar.render();
   }
